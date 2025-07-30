@@ -88,15 +88,47 @@ const books = [
 // console.log("Autori ordinati", authors)
 
 // SNACK 3.2
-const ages = books.map((book) => {
-    return structuredClone(book.author.age)
-})
-console.log(ages)
+// const ages = books.map((book) => {
+//     return structuredClone(book.author.age)
+// })
+// console.log(ages)
 
-const agesSum = ages.reduce((acc, curr) => {
-    return acc + curr
-}, 0)
-console.log(agesSum)
+// const agesSum = ages.reduce((acc, curr) => {
+//     return acc + curr
+// }, 0)
+// console.log(agesSum)
 
-const averageAge = agesSum / ages.length
-console.log(averageAge)
+// const averageAge = agesSum / ages.length
+// console.log(averageAge)
+
+// SNAKC 5
+async function getObj(url) {
+    const response = await fetch(url)
+    const obj = await response.json()
+    return obj
+}
+
+async function getBooks() {
+    try {
+        const ids = [2, 13, 7, 21, 19]
+        const booksPromises = ids.map((id) => {
+            return getObj(`http://localhost:3333/books/${id}`)
+        })
+        const books = await Promise.all(booksPromises)
+        return books
+    }
+    catch (error) {
+        throw new Error(`Errore nel recuperare i libri ${error.message}`)
+    }
+
+}
+
+(async () => {
+    try {
+        const books = await getBooks()
+        console.log("books", books)
+    }
+    catch (error) {
+        console.error(error)
+    }
+})()
