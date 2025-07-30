@@ -102,33 +102,50 @@ const books = [
 // console.log(averageAge)
 
 // SNAKC 5
-async function getObj(url) {
-    const response = await fetch(url)
-    const obj = await response.json()
-    return obj
-}
+// async function getObj(url) {
+//     const response = await fetch(url)
+//     const obj = await response.json()
+//     return obj
+// }
 
-async function getBooks() {
-    try {
-        const ids = [2, 13, 7, 21, 19]
-        const booksPromises = ids.map((id) => {
-            return getObj(`http://localhost:3333/books/${id}`)
-        })
-        const books = await Promise.all(booksPromises)
-        return books
-    }
-    catch (error) {
-        throw new Error(`Errore nel recuperare i libri ${error.message}`)
-    }
+// async function getBooks() {
+//     try {
+//         const ids = [2, 13, 7, 21, 19]
+//         const booksPromises = ids.map((id) => {
+//             return getObj(`http://localhost:3333/books/${id}`)
+//         })
+//         const books = await Promise.all(booksPromises)
+//         return books
+//     }
+//     catch (error) {
+//         throw new Error(`Errore nel recuperare i libri ${error.message}`)
+//     }
 
-}
+// }
 
-(async () => {
-    try {
-        const books = await getBooks()
-        console.log("books", books)
-    }
-    catch (error) {
-        console.error(error)
-    }
-})()
+// (async () => {
+//     try {
+//         const books = await getBooks()
+//         console.log("books", books)
+//     }
+//     catch (error) {
+//         console.error(error)
+//     }
+// })()
+
+// SNACK 6
+const areThereAvailableBooks = books.some(book => book.available === true)
+console.log(areThereAvailableBooks)
+
+const booksByPrice = books.sort((a, b) => {
+    let c = parseFloat(a.price)
+    let d = parseFloat(b.price)
+    return c - d
+})
+console.log("Books by price", booksByPrice)
+
+booksByPrice.sort((a, b) => {
+    return (a.available ? 0 : 1) - (b.available ? 0 : 1)
+})
+
+console.log(booksByPrice)
