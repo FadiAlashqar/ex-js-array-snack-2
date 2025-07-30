@@ -68,21 +68,35 @@ const books = [
 // console.log(fullPricedBook)
 
 // SNACK 3
-const authors = books.map((book) => {
-    return structuredClone(book.author)
+// const authors = books.map((book) => {
+//     return structuredClone(book.author)
+// })
+// console.log("Autori", authors)
+
+// const areAuthorsAdults = authors.every((a) => { a.age > 18 })
+// console.log(areAuthorsAdults)
+
+// authors.sort((a, b) => {
+//     if (areAuthorsAdults) {
+//         return a.age - b.age
+//     }
+//     else {
+//         return b.age - a.age
+//     }
+// })
+
+// console.log("Autori ordinati", authors)
+
+// SNACK 3.2
+const ages = books.map((book) => {
+    return structuredClone(book.author.age)
 })
-console.log("Autori", authors)
+console.log(ages)
 
-const areAuthorsAdults = authors.every((a) => { a.age > 18 })
-console.log(areAuthorsAdults)
+const agesSum = ages.reduce((acc, curr) => {
+    return acc + curr
+}, 0)
+console.log(agesSum)
 
-authors.sort((a, b) => {
-    if (areAuthorsAdults) {
-        return a.age - b.age
-    }
-    else {
-        return b.age - a.age
-    }
-})
-
-console.log("Autori ordinati", authors)
+const averageAge = agesSum / ages.length
+console.log(averageAge)
