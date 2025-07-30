@@ -53,16 +53,36 @@ const books = [
 // console.log(longBooksTitles)
 
 // SNACK 2
-const availableBooks = books.filter(book => book.available === true)
-console.log(availableBooks)
+// const availableBooks = books.filter(book => book.available === true)
+// console.log(availableBooks)
 
-const discountedBooks = availableBooks.map((book) => {
-    return { ...book, price: `${parseFloat(book.price) - (parseFloat(book.price) * 20 / 100)}€` }
+// const discountedBooks = availableBooks.map((book) => {
+//     return { ...book, price: `${parseFloat(book.price) - (parseFloat(book.price) * 20 / 100)}€` }
+// })
+// console.log(discountedBooks)
+
+// const fullPricedBook = discountedBooks.find((book) => {
+//     return Number.isInteger(parseFloat(book.price))
+
+// })
+// console.log(fullPricedBook)
+
+// SNACK 3
+const authors = books.map((book) => {
+    return structuredClone(book.author)
 })
-console.log(discountedBooks)
+console.log("Autori", authors)
 
-const fullPricedBook = discountedBooks.find((book) => {
-    return Number.isInteger(parseFloat(book.price))
+const areAuthorsAdults = authors.every((a) => { a.age > 18 })
+console.log(areAuthorsAdults)
 
+authors.sort((a, b) => {
+    if (areAuthorsAdults) {
+        return a.age - b.age
+    }
+    else {
+        return b.age - a.age
+    }
 })
-console.log(fullPricedBook)
+
+console.log("Autori ordinati", authors)
